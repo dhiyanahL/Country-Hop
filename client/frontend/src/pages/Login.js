@@ -11,10 +11,11 @@ export default function Login() {
         username,
         password,
       });
-
-      const { token, user } = res.data;
+  
+      const { token, username: returnedUsername } = res.data;
       localStorage.setItem("token", token);
-
+      localStorage.setItem("username", returnedUsername);
+  
       navigate("/home");
     } catch (err) {
       console.error("Error during login:", err);
@@ -24,6 +25,7 @@ export default function Login() {
       );
     }
   };
+  
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-[#D5B893]">

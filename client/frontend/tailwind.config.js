@@ -10,6 +10,7 @@ module.exports = {
         Coffee: "#6F4D38",
         Maroon: "#632024",
         offWhite: "#FFFDF5",
+        navyBlue: "#1B2452",
       },
 
       fontFamily: {

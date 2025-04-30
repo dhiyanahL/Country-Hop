@@ -22,6 +22,7 @@ const Home = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
   const token = localStorage.getItem("token");
+  const username = localStorage.getItem("username");
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -86,14 +87,24 @@ const Home = () => {
     <div className="p-6 bg-[#FDF7F0] min-h-screen">
       <Toaster />
 
+      {/* Welcome Header */}
+      {token && (
+        <h1
+          className="text-4xl font-bold mb-8 text-center text-[#25344F]"
+          style={{ fontFamily: "Kalnia, serif" }}
+        >
+          Welcome{username ? `, ${username}!` : "!"}
+        </h1>
+      )}
+
       {/* Top Controls */}
       <div className="mb-6 text-center flex flex-col md:flex-row items-center justify-between gap-4 flex-wrap">
         {/* Favorites Button */}
         <button
           onClick={() => navigate("/favorites")}
-          className="bg-[#6F4D38] text-[#FFFDF5] py-2 px-6 rounded-full text-xl font-semibold transition hover:bg-[#25344F]"
+          className="bg-gradient-to-r from-[#6F4D38] to-[#632024] text-[#FFFDF5] py-2 px-6 rounded-full text-xl font-semibold transition hover:scale-105 shadow-md"
         >
-          View Favorites
+          ❤️ View Favorites
         </button>
 
         {/* Search Bar */}
@@ -151,16 +162,12 @@ const Home = () => {
                 <span className="text-[#632024] font-semibold">Capital:</span>{" "}
                 <span className="text-[#25344F]">{country.capital?.[0]}</span>
               </p>
-
               <p className="mb-1">
                 <span className="text-[#632024] font-semibold">Region:</span>{" "}
                 <span className="text-[#25344F]">{country.region}</span>
               </p>
-
               <p>
-                <span className="text-[#632024] font-semibold">
-                  Population:
-                </span>{" "}
+                <span className="text-[#632024] font-semibold">Population:</span>{" "}
                 <span className="text-[#25344F]">
                   {country.population.toLocaleString()}
                 </span>
