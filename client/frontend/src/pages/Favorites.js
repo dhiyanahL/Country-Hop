@@ -54,11 +54,28 @@ const Favorites = () => {
   }, [favorites]);
 
   return (
-    <div className="p-6 bg-[#FDF7F0] min-h-screen">
+    <div className="p-6 min-h-screen"  style={{
+      backgroundImage: `url('/images/homebg.png')`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }}>
       <Toaster />
       <h1 className="text-4xl font-bold mb-10 text-[#25344F] text-center font-[Kalnia]">
         Your Favorites
       </h1>
+     
+       {/* Back Button */}
+    <div className="mb-6 flex justify-start">
+      <button
+        onClick={() => navigate(-1)} // <- this goes back to the previous page
+        className="bg-gradient-to-r from-[#6F4D38] to-[#632024] text-[#FFFDF5] py-2 px-6 rounded-full text-base font-semibold transition hover:scale-105 shadow-md"
+      >
+        ← Back
+      </button>
+    </div>
+
+
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
         {countries.map((country) => (
           <div

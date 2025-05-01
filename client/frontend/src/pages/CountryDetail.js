@@ -23,17 +23,27 @@ const CountryDetail = () => {
 
   if (!country) {
     return (
-      <div className="flex items-center justify-center min-h-screen bg-[#FFFDF5] text-[#25344F]">
+      <div className="flex items-center justify-center min-h-screen text-[#25344F]" style={{
+        backgroundImage: `url('/images/bg.jpg')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}>
         Loading country details...
       </div>
     );
   }
 
   return (
-    <div className="bg-[#FFFDF5] min-h-screen flex flex-col items-center p-6 text-[#25344F]">
+    <div className=" min-h-screen flex flex-col items-center p-6 text-[#25344F]" style={{
+      backgroundImage: `url('/images/bg.jpg')`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }}>
       <button
         onClick={() => navigate(-1)}
-        className="self-start mb-6 bg-[#617891] text-white px-5 py-2 rounded hover:bg-[#25344F] transition"
+        className="self-start bg-gradient-to-r from-[#6F4D38] to-[#632024] text-[#FFFDF5] py-2 px-6 rounded-full text-base font-semibold transition hover:scale-105 shadow-md"
       >
         ← Back
       </button>

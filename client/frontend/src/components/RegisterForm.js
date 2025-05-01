@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import toast, { Toaster } from "react-hot-toast";
 
 export default function RegisterForm() {
   const [formData, setFormData] = useState({
@@ -39,14 +40,21 @@ export default function RegisterForm() {
 
     try {
       await axios.post("http://localhost:5000/api/auth/register", formData);
+      toast.success("Registration successful! ✅");
       navigate("/");
     } catch (error) {
+      toast.error("Registration failed. Please try again ❌");
       console.error(error.response?.data?.message || "Registration failed");
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-[#D5B893] px-4">
+    <div className="min-h-screen flex items-center justify-center" style={{
+      backgroundImage: `url('/images/bg.jpg')`,
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
+    }}>
       <form
         onSubmit={handleSubmit}
         className="bg-[#FDF7F0] p-6 rounded-2xl shadow-md w-full max-w-lg border-2 border-[#6F4D38]"

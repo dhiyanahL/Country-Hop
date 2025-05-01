@@ -5,7 +5,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-
+//bg-gradient-to-br from-slateGray via-Maroon to-Tan
 const regionOptions = [
   { value: "", label: "All Regions", icon: "🌍" },
   { value: "Africa", label: "Africa", icon: "🌍" },
@@ -64,14 +64,14 @@ const Home = () => {
     }
 
     if (favorites.includes(code)) {
-      toast("Already in favorites!", { icon: "❤️" });
+      toast("Already in favorites!❤️");
       return;
     }
 
     try {
       await addFavorite(code, token);
       setFavorites((prev) => [...prev, code]);
-      toast.success("Added to favorites!");
+      toast.success("Added to favorites! ❤️");
     } catch (error) {
       console.error("Failed to add favorite:", error);
       toast.error("Error: could not add to favorites.");
@@ -83,59 +83,82 @@ const Home = () => {
     setSelectedRegion("");
   };
 
-  return (
-    <div className="p-6 bg-[#FDF7F0] min-h-screen">
-      <Toaster />
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("username");
+    toast.success("Logged out successfully!");
+    navigate("/");
+  };
 
-      {/* Welcome Header */}
+  return (
+    <div
+      className="p-6 min-h-screen"
+      style={{
+        backgroundImage: `url('/images/homebg.png')`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+        backgroundRepeat: "no-repeat",
+      }}
+    >
+      <Toaster />
       {token && (
-        <h1
-          className="text-4xl font-bold mb-8 text-center text-[#25344F]"
-          style={{ fontFamily: "Kalnia, serif" }}
-        >
-          Welcome{username ? `, ${username}!` : "!"}
+        <h1 className="text-3xl font-bold text-[#25344F] mb-6 text-center font-[Kalnia]">
+          Welcome, {username}! 🌍
         </h1>
       )}
-
       {/* Top Controls */}
-      <div className="mb-6 text-center flex flex-col md:flex-row items-center justify-between gap-4 flex-wrap">
-        {/* Favorites Button */}
-        <button
-          onClick={() => navigate("/favorites")}
-          className="bg-gradient-to-r from-[#6F4D38] to-[#632024] text-[#FFFDF5] py-2 px-6 rounded-full text-xl font-semibold transition hover:scale-105 shadow-md"
-        >
-          ❤️ View Favorites
-        </button>
+      <div className="mb-6 flex flex-col md:flex-row items-center justify-between gap-4 flex-wrap">
+        {/* Favorites and Logout Buttons */}
+        <div className="flex gap-4 flex-wrap justify-center">
+          <button
+            onClick={() => navigate("/favorites")}
+            className="bg-gradient-to-r from-[#6F4D38] to-[#632024] text-[#FFFDF5] py-2 px-6 rounded-full text-xl font-semibold transition hover:scale-105 shadow-md"
+          >
+            ❤️ View Favorites
+          </button>
 
-        {/* Search Bar */}
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search countries by name..."
-          className="p-2 border border-[#6F4D38] rounded-md w-full md:w-96 text-[#25344F]"
-        />
+          {token && (
+            <button
+              onClick={handleLogout}
+              className="bg-[#632024] text-white py-2 px-6 rounded-full text-xl font-semibold transition hover:scale-105 shadow-md"
+            >
+              🚪 Logout
+            </button>
+          )}
+        </div>
 
-        {/* Region Filter */}
-        <select
-          onChange={(e) => setSelectedRegion(e.target.value)}
-          value={selectedRegion}
-          className="p-2 border border-[#6F4D38] rounded-md text-[#25344F] bg-white"
-        >
-          {regionOptions.map((region) => (
-            <option key={region.value} value={region.value}>
-              {region.icon} {region.label}
-            </option>
-          ))}
-        </select>
+        {/* Search + Filters */}
+        <div className="flex flex-wrap gap-3 items-center justify-center">
+          {/* Search Bar */}
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+            placeholder="Search countries by name..."
+            className="p-2 border border-[#6F4D38] rounded-md w-64 text-[#25344F]"
+          />
 
-        {/* Clear Filters Button */}
-        <button
-          onClick={handleClearFilters}
-          className="bg-[#617891] text-white py-2 px-4 rounded-full hover:bg-[#25344F] transition"
-        >
-          Clear Filters
-        </button>
+          {/* Region Filter */}
+          <select
+            onChange={(e) => setSelectedRegion(e.target.value)}
+            value={selectedRegion}
+            className="p-2 border border-[#6F4D38] rounded-md text-[#25344F] bg-white"
+          >
+            {regionOptions.map((region) => (
+              <option key={region.value} value={region.value}>
+                {region.icon} {region.label}
+              </option>
+            ))}
+          </select>
+
+          {/* Clear Filters Button */}
+          <button
+            onClick={handleClearFilters}
+            className="bg-gradient-to-r from-[#6F4D38] to-[#632024] text-[#FFFDF5] py-2 px-6 rounded-full text-base font-semibold transition hover:scale-105 shadow-md"
+          >
+            🧹 Clear Filters
+          </button>
+        </div>
       </div>
 
       {/* Country Cards */}
@@ -167,7 +190,9 @@ const Home = () => {
                 <span className="text-[#25344F]">{country.region}</span>
               </p>
               <p>
-                <span className="text-[#632024] font-semibold">Population:</span>{" "}
+                <span className="text-[#632024] font-semibold">
+                  Population:
+                </span>{" "}
                 <span className="text-[#25344F]">
                   {country.population.toLocaleString()}
                 </span>
