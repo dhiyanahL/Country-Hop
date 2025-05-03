@@ -12,7 +12,7 @@ test("calls onRegister with username and password when submitted", () => {
   render(<RegisterForm onRegister={mockRegister} />);
 
   fireEvent.change(screen.getByTestId("username-input"), {
-    target: { value: "yenuli" },
+    target: { value: "dhiyanah" },
   });
   fireEvent.change(screen.getByTestId("password-input"), {
     target: { value: "secret123" },
@@ -21,5 +21,5 @@ test("calls onRegister with username and password when submitted", () => {
   fireEvent.click(screen.getByTestId("register-button"));
 
   expect(mockRegister).toHaveBeenCalledTimes(1);
-  expect(mockRegister).toHaveBeenCalledWith("yenuli", "secret123");
+  expect(mockRegister).toHaveBeenCalledWith("dhiyanah", "secret123");
 });
