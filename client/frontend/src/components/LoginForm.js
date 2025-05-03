@@ -67,7 +67,7 @@ export default function LoginForm({ onLogin }) {
           onClick={() => setPasswordVisible(!passwordVisible)}
           className="absolute top-2/3 right-3 transform -translate-y-1/4 cursor-pointer text-[#6F4D38]"
         >
-          {passwordVisible ? <AiOutlineEyeInvisible size={24} /> : <AiOutlineEye size={24} />}
+          {passwordVisible ? <AiOutlineEye size={24} /> : <AiOutlineEyeInvisible size={24} />}
         </span>
         {passwordError && <p className="text-red-500 text-sm mt-1">{passwordError}</p>}
       </div>

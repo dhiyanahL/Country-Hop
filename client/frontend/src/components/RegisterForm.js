@@ -95,7 +95,7 @@ export default function RegisterForm() {
               onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-2.5 cursor-pointer text-[#6F4D38]"
             >
-              {showPassword ? <AiFillEyeInvisible size={20} /> : <AiFillEye size={20} />}
+              {showPassword ? <AiFillEye size={20} /> : <AiFillEyeInvisible size={20} />}
             </span>
           </div>
           {errors.password && <p className="text-red-600 text-sm mt-1">{errors.password}</p>}
