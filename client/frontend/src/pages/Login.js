@@ -1,7 +1,7 @@
 import LoginForm from "../components/LoginForm";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-import toast, { Toaster } from "react-hot-toast";
+import toast from "react-hot-toast";
 
 export default function Login() {
   const navigate = useNavigate();
