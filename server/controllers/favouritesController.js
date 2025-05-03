@@ -26,3 +26,28 @@ export const addFavorite = async (req, res) => {
       res.status(500).json({ error: 'Error fetching favorites' });
     }
   };
+
+  export const removeFavorite = async (req, res) => {
+    const userId = req.user.id;
+    const { countryCode } = req.params;
+  
+    try {
+      const user = await User.findById(userId);
+      if (!user) return res.status(404).json({ error: "User not found" });
+  
+      // Check if country exists in favorites
+      const index = user.favorites.indexOf(countryCode);
+      if (index === -1) {
+        return res.status(404).json({ error: "Country not found in favorites" });
+      }
+  
+      // Remove it
+      user.favorites.splice(index, 1);
+      await user.save();
+  
+      res.json({ message: "Country removed from favorites", favorites: user.favorites });
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: "Error removing favorite" });
+    }
+  };

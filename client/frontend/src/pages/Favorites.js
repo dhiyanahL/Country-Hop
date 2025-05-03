@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getFavorites } from "../services/auth"; // Import function to fetch favorites
+import { getFavorites, removeFavorite } from "../services/auth"; // Import function to fetch favorites
 import { useNavigate } from "react-router-dom";
 import { AiFillHeart } from "react-icons/ai";
 import toast, { Toaster } from "react-hot-toast";
@@ -91,9 +91,18 @@ const Favorites = () => {
             <h2 className="font-bold text-xl mb-1">{country.name}</h2>
             <button
               className="mt-4 text-[#632024] font-semibold flex items-center gap-2"
-              onClick={(e) => {
-                e.stopPropagation(); // prevent card click event
-                toast("Country removed from favorites!");
+              onClick={async (e) => {
+                e.stopPropagation(); 
+                try {
+                  await removeFavorite(token, country.code);
+                  toast.success(`${country.name} removed from favorites!`);
+                  // Update the local state to remove the country
+                  setFavorites((prev) => prev.filter((fav) => fav !== country.code));
+                } catch (error) {
+                  console.error("Error removing favorite:", error);
+                  toast.error("Failed to remove favorite.");
+                }
+               
               }}
             >
               <AiFillHeart size={20} /> Remove from Favorites

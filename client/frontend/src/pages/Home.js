@@ -5,7 +5,7 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
 import toast, { Toaster } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
-//bg-gradient-to-br from-slateGray via-Maroon to-Tan
+
 const regionOptions = [
   { value: "", label: "All Regions", icon: "🌍" },
   { value: "Africa", label: "Africa", icon: "🌍" },
@@ -21,6 +21,8 @@ const Home = () => {
   const [favorites, setFavorites] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedRegion, setSelectedRegion] = useState("");
+  const [selectedLanguage, setSelectedLanguage] = useState("");
+  const [languageOptions, setLanguageOptions] = useState([]);
   const token = localStorage.getItem("token");
   const username = localStorage.getItem("username");
   const navigate = useNavigate();
@@ -36,6 +38,11 @@ const Home = () => {
         } else if (selectedRegion) {
           const res = await axios.get(
             `https://restcountries.com/v3.1/region/${selectedRegion}`
+          );
+          setCountries(res.data);
+        } else if (selectedLanguage) {
+          const res = await axios.get(
+            `https://restcountries.com/v3.1/lang/${selectedLanguage}`
           );
           setCountries(res.data);
         } else {
@@ -55,7 +62,29 @@ const Home = () => {
         .then((res) => setFavorites(res.data.favorites))
         .catch((err) => console.log("Failed to load favorites", err));
     }
-  }, [searchQuery, selectedRegion, token]);
+  }, [searchQuery, selectedRegion, selectedLanguage, token]);
+
+  // Fetch available languages (simplified approach)
+  useEffect(() => {
+    const fetchLanguages = async () => {
+      try {
+        const res = await getAllCountries();
+        const languageSet = new Set();
+        res.data.forEach((country) => {
+          if (country.languages) {
+            Object.values(country.languages).forEach((lang) =>
+              languageSet.add(lang)
+            );
+          }
+        });
+        const languageArray = Array.from(languageSet).sort();
+        setLanguageOptions(languageArray);
+      } catch (error) {
+        console.log("Error fetching languages", error);
+      }
+    };
+    fetchLanguages();
+  }, []);
 
   const handleAddFavorite = async (code) => {
     if (!token) {
@@ -81,6 +110,7 @@ const Home = () => {
   const handleClearFilters = () => {
     setSearchQuery("");
     setSelectedRegion("");
+    setSelectedLanguage("");
   };
 
   const handleLogout = () => {
@@ -106,9 +136,9 @@ const Home = () => {
           Welcome, {username}! 🌍
         </h1>
       )}
+
       {/* Top Controls */}
       <div className="mb-6 flex flex-col md:flex-row items-center justify-between gap-4 flex-wrap">
-        {/* Favorites and Logout Buttons */}
         <div className="flex gap-4 flex-wrap justify-center">
           <button
             onClick={() => navigate("/favorites")}
@@ -127,9 +157,7 @@ const Home = () => {
           )}
         </div>
 
-        {/* Search + Filters */}
         <div className="flex flex-wrap gap-3 items-center justify-center">
-          {/* Search Bar */}
           <input
             type="text"
             value={searchQuery}
@@ -138,7 +166,6 @@ const Home = () => {
             className="p-2 border border-[#6F4D38] rounded-md w-64 text-[#25344F]"
           />
 
-          {/* Region Filter */}
           <select
             onChange={(e) => setSelectedRegion(e.target.value)}
             value={selectedRegion}
@@ -151,7 +178,19 @@ const Home = () => {
             ))}
           </select>
 
-          {/* Clear Filters Button */}
+          <select
+            onChange={(e) => setSelectedLanguage(e.target.value)}
+            value={selectedLanguage}
+            className="p-2 border border-[#6F4D38] rounded-md text-[#25344F] bg-white"
+          >
+            <option value="">🌐 All Languages</option>
+            {languageOptions.map((lang) => (
+              <option key={lang} value={lang.toLowerCase()}>
+                🗣️ {lang}
+              </option>
+            ))}
+          </select>
+
           <button
             onClick={handleClearFilters}
             className="bg-gradient-to-r from-[#6F4D38] to-[#632024] text-[#FFFDF5] py-2 px-6 rounded-full text-base font-semibold transition hover:scale-105 shadow-md"
@@ -199,7 +238,9 @@ const Home = () => {
               </p>
 
               <button
-                aria-label={isFavorited ? "Already Favorited" : "Add to Favorites"}
+                aria-label={
+                  isFavorited ? "Already Favorited" : "Add to Favorites"
+                }
                 onClick={() => handleAddFavorite(country.cca3)}
                 className={`mt-4 flex items-center gap-2 font-semibold transition ${
                   isFavorited
