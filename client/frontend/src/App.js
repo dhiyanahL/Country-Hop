@@ -7,10 +7,7 @@ import { Toaster } from "react-hot-toast";
 import Favorites from './pages/Favorites';
 import CountryDetail from "./pages/CountryDetail";
 import PrivateRoute from './components/PrivateRoute';
-//import Register from './pages/Register';
 
-//<Route path="/login" element={<Login />} />
-//<Route path="/register" element={<Register />} />
 
 function App() {
   return (
@@ -20,8 +17,8 @@ function App() {
         <Route path="/" element={<Login />} />
         <Route path="/home" element={ <PrivateRoute><Home /></PrivateRoute>} />
         <Route path="/register" element={ <RegisterForm/>}/>
-        <Route path="/favorites" element={ <PrivateRoute><Favorites /></PrivateRoute>} />        //<Route path="/favorites" element={<Favorites />} />
-        <Route path="/country/:code" element={ <PrivateRoute><CountryDetail /></PrivateRoute>} />        //<Route path="/country/:code" element={<CountryDetail />} />
+        <Route path="/favorites" element={ <PrivateRoute><Favorites /></PrivateRoute>} />       
+        <Route path="/country/:code" element={ <PrivateRoute><CountryDetail /></PrivateRoute>} />        
        
       </Routes>
     </Router>
