@@ -199,6 +199,7 @@ const Home = () => {
               </p>
 
               <button
+                aria-label={isFavorited ? "Already Favorited" : "Add to Favorites"}
                 onClick={() => handleAddFavorite(country.cca3)}
                 className={`mt-4 flex items-center gap-2 font-semibold transition ${
                   isFavorited

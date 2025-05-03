@@ -67,6 +67,7 @@ export default function RegisterForm() {
         <div className="mb-5">
           <label className="block text-lg mb-2 text-[#6F4D38] font-bold">Username</label>
           <input
+           data-testid="username-input"
             name="username"
             type="text"
             value={formData.username}
@@ -83,6 +84,7 @@ export default function RegisterForm() {
           <label className="block text-lg mb-2 text-[#6F4D38] font-bold">Password</label>
           <div className="relative">
             <input
+             data-testid="password-input"
               name="password"
               type={showPassword ? "text" : "password"}
               value={formData.password}
@@ -103,6 +105,7 @@ export default function RegisterForm() {
 
         {/* Submit Button */}
         <button
+          data-testid="register-button"
           type="submit"
           className="w-full bg-[#25344F] text-white py-3 rounded-xl hover:bg-[#632024] transition text-xl font-kalnia"
         >
