@@ -39,7 +39,7 @@ export default function RegisterForm() {
     }
 
     try {
-      await axios.post("http://localhost:5000/api/auth/register", formData);
+      await axios.post("https://40972122-e0d5-412f-82c6-143e48c86c58-dev.e1-us-east-azure.choreoapis.dev/country-hop-backend/country-hop-backend/v1.0/api/auth/register", formData);
       toast.success("Registration successful! ✅");
       navigate("/");
     } catch (error) {

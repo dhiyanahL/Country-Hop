@@ -8,7 +8,7 @@ export default function Login() {
 
   const handleLogin = async (username, password) => {
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
+      const res = await axios.post("https://40972122-e0d5-412f-82c6-143e48c86c58-dev.e1-us-east-azure.choreoapis.dev/country-hop-backend/country-hop-backend/v1.0/api/auth/login", {
         username,
         password,
       });
