@@ -86,6 +86,7 @@ npm test
 ## 🌐 Live Demo
 
 👉 [CountryHop Frontend](https://country-hop.netlify.app)
+👉 [CountryHop Backend - Deployed using Choreo](https://40972122-e0d5-412f-82c6-143e48c86c58-dev.e1-us-east-azure.choreoapis.dev/country-hop-backend/country-hop-backend/v1.0)
 
 
 
