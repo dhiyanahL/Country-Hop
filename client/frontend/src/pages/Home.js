@@ -133,7 +133,7 @@ const Home = () => {
       <Toaster />
       {token && (
         <h1 className="text-3xl font-bold text-[#25344F] mb-6 text-center font-[Kalnia]">
-          Welcome, {username}! 🌍
+          Welcome to Country Hop, {username}! 🌍
         </h1>
       )}
 
